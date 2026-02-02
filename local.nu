@@ -9,11 +9,6 @@ path add "~/go/bin"
 $env.config.show_banner = false
 $env.config.buffer_editor = "nvim"
 
-alias vi = nvim
-alias vim = nvim
-
-alias ll = ls -l
-
 def libvirt-uri [ host ] {
   $"qemu+ssh://($env.USER)@($host)/system?keyfile=($env.HOME)/.ssh/id_rsa&sshauth=privkey&no_verify=1"
 }
@@ -25,12 +20,45 @@ $env.hypervisors = {
   wee:   (libvirt-uri wee.mac.wales)
 }
 
-def --env hypervisor [ name ] {
-  $env.LIBVIRT_DEFAULT_URI = $env.hypervisors | get $name
-  $env.hypervisor = $name
+module commands {
+
+  export def "hypervisors" [] {
+    $env.hypervisors | columns
+  }
+
+  export def hypervisor [] {
+    "usage:
+    
+  hypervisor list
+  hypervisor use <name>
+  "
+  }
+
+  export def "hypervisor list" [] {
+    hypervisors | each { |n| 
+      if $n == $env.hypervisor {
+        $"(ansi yellow)* ($n)(ansi reset)"
+      } else {
+        $"  ($n)"
+      }
+    }
+  }
+
+  export def --env "hypervisor use" [ name: string@hypervisors ] {
+    $env.LIBVIRT_DEFAULT_URI = $env.hypervisors | get $name
+    $env.hypervisor = $name
+  }
+
 }
 
-hypervisor local
+use commands *
+
+hypervisor use local
+
+alias vi = nvim
+alias vim = nvim
+
+alias ll = ls -l
 
 alias g = git
 alias gs = git status
