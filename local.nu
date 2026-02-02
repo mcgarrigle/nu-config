@@ -34,14 +34,21 @@ module commands {
   "
   }
 
-  export def "hypervisor list" [] {
-    hypervisors | each { |n| 
-      if $n == $env.hypervisor {
-        $"(ansi yellow)* ($n)(ansi reset)"
-      } else {
-        $"  ($n)"
-      }
+  def "hypervisor-tag" [ name ] {
+    if $name == $env.hypervisor {
+      $"(ansi yellow)* ($name)(ansi reset)"
+    } else {
+      $"  ($name)"
     }
+  }
+
+  export def "hypervisor list" [] {
+    $env.hypervisors 
+    | items { |name, uri| 
+      let new_name = hypervisor-tag $name
+      [ $new_name $uri ]
+    } 
+    | into record
   }
 
   export def --env "hypervisor use" [ name: string@hypervisors ] {
