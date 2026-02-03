@@ -1,0 +1,10 @@
+#!/usr/bin/env nu
+
+def link [ filename, dir ] {
+  ln -sf -t $dir $filename
+  $filename
+}
+
+let $links = ls config/* | get name | prepend "scripts" | path expand
+
+$links | each { |file| link $file $nu.default-config-dir }

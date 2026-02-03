@@ -1,4 +1,3 @@
-# add to config.nu
 
 def tag [ name ] {
   if $name == $env.hypervisor {
