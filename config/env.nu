@@ -6,7 +6,7 @@ use utilities.nu *
 
 def create_left_prompt [] {
   let pwd = relative-to-home $env.PWD
-  $"(ansi green)($env.USER)(ansi yellow)@(ansi blue)(hostname) (ansi white)($pwd) "
+  $"(ansi green)($env.USER)(ansi yellow)@(ansi blue)(hostname --short) (ansi white)($pwd) "
 }
 
 def create_right_prompt [] {
