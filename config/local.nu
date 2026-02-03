@@ -1,6 +1,6 @@
 # add to config.nu
 #
-# source $"($nu.default-config-dir | path join local.nu)"
+# source local.nu
 
 use std/util "path add"
 use utilities.nu *
