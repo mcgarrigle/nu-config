@@ -17,4 +17,6 @@ ls config/*   | each { |file| copy $file $nu.default-config-dir }
 ls autoload/* | each { |file| copy $file $autoload_dir }
 ls scripts/*  | each { |file| copy $file $scripts_dir }
 
+/usr/libexec/nushell/post-install.nu
+
 null
