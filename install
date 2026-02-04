@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+function install {
+  sudo dnf install -y $@
+}
+
+sudo cp repos/*.repo /etc/yum.repos.d/
+
+install epel-release
+install neovim git nushell util-linux-user golang carapace-bin
+
+sudo chsh -s /usr/bin/nu $USER

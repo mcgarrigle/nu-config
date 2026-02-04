@@ -1,10 +1,19 @@
 #!/usr/bin/env nu
 
-def link [ filename, dir ] {
-  ln -sf -t $dir $filename
-  $filename
+def copy [file, dir ] {
+  print $"copy ($file.name) ($dir)"
+  cp $file.name $dir
 }
 
-let $links = ls config/* | get name | prepend "scripts" | path expand
+# -------------------------------------------------
 
-$links | each { |file| link $file $nu.default-config-dir }
+let scripts_dir  = $nu.default-config-dir | path join "scripts"
+let autoload_dir = $nu.user-autoload-dirs.0
+
+mkdir $autoload_dir
+mkdir $scripts_dir
+
+ls autoload/* | each { |file| copy $file $autoload_dir }
+ls scripts/*  | each { |file| copy $file $scripts_dir }
+
+null
