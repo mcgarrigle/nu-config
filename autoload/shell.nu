@@ -6,12 +6,13 @@ path add "~/go/bin"
 $env.config.show_banner = false
 $env.config.buffer_editor = "nvim"
 $env.config.table.mode = 'compact'
-# $env.config.hooks.display_output = 'if (term size).columns >= 100 { table -e --icons } else { table --icons }'
 
 alias vi = nvim
 alias vim = nvim
 
 alias ll = ls -l
+
+alias cal = cal --week-start mo
 
 alias g = git
 alias gs = git status
