@@ -1,0 +1,12 @@
+#!/usr/bin/env nu
+
+let themes = ['basic', 'thin', 'light', 'compact', 'with_love', 'compact_double',
+              'rounded', 'reinforced', 'heavy', 'none', 'psql', 'markdown', 'dots',
+              'restructured', 'ascii_rounded', 'basic_compact', 'single', 'double' ]
+
+$themes | each { |t| 
+  let out = ls | table --theme $t
+  print $t $out
+}
+
+null
