@@ -13,6 +13,7 @@ let autoload_dir = $nu.user-autoload-dirs.0
 mkdir $autoload_dir
 mkdir $scripts_dir
 
+ls config/*   | each { |file| copy $file $nu.default-config-dir }
 ls autoload/* | each { |file| copy $file $autoload_dir }
 ls scripts/*  | each { |file| copy $file $scripts_dir }
 

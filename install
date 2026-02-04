@@ -7,6 +7,8 @@ function install {
 sudo cp repos/*.repo /etc/yum.repos.d/
 
 install epel-release
-install neovim git nushell util-linux-user golang carapace-bin
+install neovim git nushell fastfetch util-linux-user golang carapace-bin
+
+sudo cp etc/issue /etc/issue
 
 sudo chsh -s /usr/bin/nu $USER
