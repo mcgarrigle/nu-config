@@ -7,10 +7,12 @@ $env.config.show_banner = false
 $env.config.buffer_editor = "nvim"
 $env.config.table.mode = 'compact'
 
+alias cls = clear
 alias vi = nvim
 alias vim = nvim
 
 alias ll = ls -l
+alias tree = tree -A
 
 alias cal = cal --week-start mo
 
