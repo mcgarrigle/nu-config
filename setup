@@ -14,11 +14,15 @@ let autoload_dir = $nu.user-autoload-dirs.0
 
 mkdir $autoload_dir
 mkdir $scripts_dir
+mkdir $nu.cache-dir
 
 ls config/*   | copy-to $nu.default-config-dir
 ls autoload/* | copy-to $autoload_dir
 ls scripts/*  | copy-to $scripts_dir
 
 /usr/libexec/nushell/post-install.nu
+
+$env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense' # optional
+carapace _carapace nushell | save --force $"($nu.cache-dir)/carapace.nu"
 
 null
