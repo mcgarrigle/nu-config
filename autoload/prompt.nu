@@ -1,8 +1,24 @@
 use utilities.nu *
 
+def git-repo-state [ dir ] {
+  let state  = gstat $dir
+  let branch = $state | get branch
+
+  if $branch == no_branch { return "" }
+
+  let untracked = $state | get wt_untracked
+  let modified  = $state | get wt_modified
+  let deleted   = $state | get wt_deleted
+  let renamed   = $state | get wt_renamed
+  let changes   = $modified + $deleted + $renamed
+
+  $" [(ansi magenta)($branch) ($changes)/($untracked)(ansi reset)]"
+}
+
 def create_left_prompt [] {
   let pwd = relative-to-home $env.PWD
-  $"(ansi green)($env.USER)(ansi yellow)@(ansi blue)(hostname --short) (ansi white)($pwd) "
+  let git = git-repo-state $env.PWD
+  $"(ansi green)($env.USER)(ansi yellow)@(ansi blue)(hostname --short) (ansi white)($pwd)($git) "
 }
 
 def create_right_prompt [] {
