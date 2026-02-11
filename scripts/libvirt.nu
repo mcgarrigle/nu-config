@@ -28,3 +28,9 @@ export def --env "hypervisor use" [ name: string@hypervisors ] {
   | $in.uri.0
   $env.hypervisor = $name
 }
+
+export def --env "hypervisor import" [] {
+  if ($env.hypervisors | describe) == 'string' {
+    $env.hypervisors = $env.hypervisors | from json
+  }
+}

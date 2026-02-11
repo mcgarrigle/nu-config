@@ -7,18 +7,33 @@ def copy-to [ dir ] {
     print $"copy ($file.name) ($dir)"
     cp $file.name $dir
   }
+  print ""
+}
+
+def append-to [ env_file ] {
+  let files = collect
+  $files | each { |file| 
+    print $"append ($file.name) env.nu"
+    open $file.name | save --append $env_file
+  }
+  print ""
 }
 
 # -------------------------------------------------
 
 # copy config and scripts
 
-let autoload_dir = $nu.user-autoload-dirs.0
-let scripts_dir  = $nu.default-config-dir | path join "scripts"
+let $autoload_dir = $nu.user-autoload-dirs.0
+let scripts_dir   = $nu.default-config-dir | path join "scripts"
+let env_file      = $nu.default-config-dir | path join "env.nu"
 
 ls autoload | copy-to $autoload_dir
 ls config   | copy-to $nu.default-config-dir
 ls scripts  | copy-to $scripts_dir
+
+# append these files to {config}/env.nu
+
+ls env | append-to $env_file
 
 # install plugins
 
