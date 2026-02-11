@@ -15,7 +15,6 @@ alias vi = nvim
 alias vim = nvim
 
 alias ll = ls -l
-alias tree = tree -A
 
 alias cal = cal --week-start mo
 
