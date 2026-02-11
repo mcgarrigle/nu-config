@@ -1,4 +1,4 @@
-use libvirt.nu *
+use hypervisor.nu *
 
 def libvirt-uri [ host ] {
   $"qemu+ssh://($env.USER)@($host)/system?keyfile=($env.HOME)/.ssh/id_rsa&sshauth=privkey&no_verify=1"

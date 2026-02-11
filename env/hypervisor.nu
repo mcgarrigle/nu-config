@@ -1,4 +1,4 @@
-# env/libvirt.nu
+# env/hypervisor.nu
 
 $env.ENV_CONVERSIONS.hypervisors = { 
   from_string: { |s| $s | from json }

@@ -10,7 +10,7 @@ export def hypervisors [] {
   $env.hypervisors | select name | values | $in.0
 }
 
-export def hypervisor [] {
+export def main [] {
   "usage:
   
 hypervisor list
