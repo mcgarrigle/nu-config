@@ -7,15 +7,7 @@ def tag [ name ] {
 }
 
 export def hypervisors [] {
-  $env.hypervisors | select name | values | $in.0
-}
-
-export def main [] {
-  "usage:
-  
-hypervisor list
-hypervisor use <name>
-"
+  $env.hypervisors | each { $in.name }
 }
 
 export def "hypervisor list" [] {
@@ -33,4 +25,12 @@ export def --env "hypervisor import" [] {
   if ($env.hypervisors | describe) == 'string' {
     $env.hypervisors = $env.hypervisors | from json
   }
+}
+
+export def main [] {
+  "usage:
+
+hypervisor list
+hypervisor use <name>
+"
 }
