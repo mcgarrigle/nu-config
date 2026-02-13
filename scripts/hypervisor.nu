@@ -1,29 +1,31 @@
 def tag [ name ] {
-  if $name == $env.hypervisor {
+  if $name == $env.HYPERVISOR {
     $"(ansi yellow)* ($name)(ansi reset)"
   } else {
     $"  ($name)"
   }
 }
 
-export def hypervisors [] {
-  $env.hypervisors | each { $in.name }
+def hypervisors [] {
+  $env.HYPERVISORS | each { $in.name }
 }
 
-export def "hypervisor list" [] {
-  $env.hypervisors | update name { |row| tag $row.name } 
+# ---------------------------------------------
+
+export def list [] {
+  $env.HYPERVISORS | update name {|row| tag $row.name }
 }
 
-export def --env "hypervisor use" [ name: string@hypervisors ] {
-  $env.LIBVIRT_DEFAULT_URI = $env.hypervisors 
+export def --env use [ name: string@hypervisors ] {
+  $env.LIBVIRT_DEFAULT_URI = $env.HYPERVISORS
   | where name == $name
   | $in.uri.0
-  $env.hypervisor = $name
+  $env.HYPERVISOR = $name
 }
 
-export def --env "hypervisor import" [] {
-  if ($env.hypervisors | describe) == 'string' {
-    $env.hypervisors = $env.hypervisors | from json
+export def --env import [] {
+  if ($env.HYPERVISORS | describe) == 'string' {
+    $env.HYPERVISORS = $env.HYPERVISORS | from json
   }
 }
 

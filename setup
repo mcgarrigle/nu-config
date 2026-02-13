@@ -4,8 +4,9 @@ def copy-to [ dir ] {
   let files = collect
   mkdir $dir
   $files | each { |file| 
-    print $"copy ($file.name) ($dir)"
-    cp $file.name $dir
+    let dest = $dir | path join ($file.name | path basename) 
+    print $"copy ($file.name) ($dest)"
+    cp --force $file.name $dest
   }
   print ""
 }
