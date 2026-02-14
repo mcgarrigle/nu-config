@@ -1,7 +1,8 @@
 use std/util "path add"
 use utilities.nu *
 
-path add "~/go/bin"
+path add ~/go/bin
+path add ~/.local/share/nvim/bin
 
 $env.config.show_banner = false
 $env.config.buffer_editor = "nvim"
