@@ -30,7 +30,7 @@ let env_file      = $nu.default-config-dir | path join "env.nu"
 
 ls autoload | copy-to $autoload_dir
 ls config   | copy-to $nu.default-config-dir
-ls scripts  | copy-to $scripts_dir
+ls -a home  | copy-to $env.HOME
 
 # append these files to {config}/env.nu
 

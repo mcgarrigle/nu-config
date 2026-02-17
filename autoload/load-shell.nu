@@ -36,3 +36,19 @@ alias gl  = git --no-pager log --pretty=format:'%C(bold)%h %ci %C(magenta)%ae %C
 alias gll = git --no-pager log --pretty=format:'%C(bold)%h %ci %C(magenta)%ae %C(cyan)%s%C(reset)' --abbrev-commit; echo
 alias glt = git --no-pager log --pretty=oneline --abbrev-commit --max-count=20
 alias gk  = git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative
+
+
+def tm2 [] {
+  tmux -f ~/.tmux2.conf attach-session
+}
+
+def tm3 [] {
+  tmux -f ~/.tmux3.conf attach-session
+}
+
+def tma [] {
+  tmux attach-session
+}
+
+alias tm = tm2
+

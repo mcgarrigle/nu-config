@@ -18,7 +18,8 @@ def git-repo-state [ dir ] {
 def create_left_prompt [] {
   let pwd = relative-to-home $env.PWD
   let git = git-repo-state $env.PWD
-  $"(ansi white)┌─ (ansi green)($env.USER)(ansi yellow)@(ansi blue)(hostname --short) (ansi white)($pwd)($git)\n(ansi white)│\n(ansi white)└─ "
+  # $"(ansi white)┌─ (ansi green)($env.USER)(ansi yellow)@(ansi blue)(hostname --short) (ansi white)($pwd)($git)\n(ansi white)│\n(ansi white)└─ "
+  $"(ansi white)┌ (ansi green)($env.USER)(ansi yellow)@(ansi blue)(hostname --short) (ansi white)($pwd)($git)\n(ansi white)└ "
 }
 
 def create_right_prompt [] {
