@@ -63,3 +63,6 @@ def tma [] {
 
 alias tm = tm2
 
+def ssh-copy-keys [host: string] {
+  scp -p ~/.ssh/id_* $"($host):~/.ssh"
+}
