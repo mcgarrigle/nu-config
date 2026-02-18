@@ -15,15 +15,13 @@ alias cls = clear
 alias vi = nvim
 alias vim = nvim
 
-alias ll = ls -l
-
 alias cal = cal --week-start mo
 
 alias g   = git
 alias gs  = git status
 alias gd  = git diff
-alias ga  = git add
-alias gaa = git add -A
+# alias ga  = git add
+# alias gaa = git add -A
 alias gb  = git branch
 alias gc  = git commit -m
 alias gca = git commit --amend
@@ -37,6 +35,19 @@ alias gll = git --no-pager log --pretty=format:'%C(bold)%h %ci %C(magenta)%ae %C
 alias glt = git --no-pager log --pretty=oneline --abbrev-commit --max-count=20
 alias gk  = git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative
 
+def ga [...files: string] {
+  git add ...$files
+  git status
+}
+
+def gaa [] {
+  git add -A
+  git status
+}
+
+def ll [] {
+  ls -la | select name type size user group mode target
+}
 
 def tm2 [] {
   tmux -f ~/.tmux2.conf attach-session
