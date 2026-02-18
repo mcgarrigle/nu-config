@@ -54,6 +54,7 @@ def --env zd [ p: string ] {
   | each {|p| {name: $p, type: ($p | path type)} }
   | where type == dir 
   | get name
+  | reverse
   | let d
 
   if ($d | length) == 0 {
