@@ -49,6 +49,20 @@ def ll [] {
   ls -la | select name type size user group mode target
 }
 
+def --env zd [ p: string ] {
+  glob $"**/($p)*"
+  | each {|p| {name: $p, type: ($p | path type)} }
+  | where type == dir 
+  | get name
+  | let d
+
+  if ($d | length) == 0 {
+    ignore
+  } else {
+    cd $d.0
+  }
+}
+
 def tm2 [] {
   tmux -f ~/.tmux2.conf attach-session
 }
