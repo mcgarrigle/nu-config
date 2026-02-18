@@ -50,6 +50,10 @@ def ll [] {
 }
 
 def --env zd [ p: string ] {
+  if $p == "-" {
+    cd -
+    return
+  }
   glob $"**/($p)*"
   | each {|p| {name: $p, type: ($p | path type)} }
   | where type == dir 
