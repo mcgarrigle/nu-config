@@ -35,6 +35,8 @@ alias gll = git --no-pager log --pretty=format:'%C(bold)%h %ci %C(magenta)%ae %C
 alias glt = git --no-pager log --pretty=oneline --abbrev-commit --max-count=20
 alias gk  = git log --graph --pretty=format:'%C(bold)%h%Creset%C(magenta)%d%Creset %s %C(yellow)<%an> %C(cyan)(%cr)%Creset' --abbrev-commit --date=relative
 
+# ------------------------------------------------
+
 def ga [...files: string] {
   git add ...$files
   git status
@@ -45,23 +47,36 @@ def gaa [] {
   git status
 }
 
+# ------------------------------------------------
+
 def ll [] {
   ls -la | select name type size user group mode target
 }
 
-def --env zd [p?: string = ""] {
+# ------------------------------------------------
+
+def __dirl [] {
+  ls ~/**/ | get name
+}
+
+def __dirs [] {
+  {
+    options: {
+      case_sensitive: false,
+      completion_algorithm: substring,
+      sort: true,
+    },
+    completions: (__dirl)
+  }
+}
+
+def --env zd [p?: string@__dirs = ""] {
   if $p == ""  { cd; return   }
   if $p == "-" { cd -; return }
-
-  glob $"~/**/($p)*"
-  | each {|p| {name: $p, type: ($p | path type)} }
-  | where type == dir 
-  | get name
-  | reverse
-  | let d
-
-  if ($d | length) > 0 { cd $d.0 }
+  cd $p
 }
+
+# ------------------------------------------------
 
 def tm2 [] {
   tmux -f ~/.tmux2.conf attach-session
@@ -76,6 +91,8 @@ def tma [] {
 }
 
 alias tm = tm2
+
+# ------------------------------------------------
 
 def ssh-copy-keys [host: string] {
   scp -p ~/.ssh/id_* $"($host):~/.ssh"
