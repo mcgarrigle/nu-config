@@ -53,7 +53,7 @@ def --env zd [p?: string = ""] {
   if $p == ""  { cd; return   }
   if $p == "-" { cd -; return }
 
-  glob $"**/($p)*"
+  glob $"~/**/($p)*"
   | each {|p| {name: $p, type: ($p | path type)} }
   | where type == dir 
   | get name
