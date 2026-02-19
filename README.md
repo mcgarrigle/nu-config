@@ -12,6 +12,10 @@ A pre-canned deployment of nushell for RHEL family of OS with all my preferences
 ## Install ##
 
 ```
+$ git clone https://github.com/mcgarrigle/nu-config.git
+
+$ cd nu-config
+
 $ ./install  # set repos and install all dependencies
 
 $ ./setup    # copy config and script files, configure plugins and carapace integration
