@@ -49,8 +49,8 @@ def gaa [] {
 
 # ------------------------------------------------
 
-def ll [] {
-  ls -la | select name type size user group mode target
+def --wrapped ll [dir?:glob = '.', ...rest] {
+  ls -la $dir ...$rest | select name type size user group mode target
 }
 
 # ------------------------------------------------
