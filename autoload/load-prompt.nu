@@ -1,7 +1,7 @@
 use utilities.nu *
 
-def git-repo-state [ dir ] {
-  let state  = gstat $dir
+def git-repo-state [] {
+  let state  = gstat $env.PWD
   let branch = $state | get branch
 
   if $branch == no_branch { return "" }
@@ -12,22 +12,24 @@ def git-repo-state [ dir ] {
   let renamed   = $state | get wt_renamed
   let changes   = $modified + $deleted + $renamed
 
-  $" [(ansi magenta)($branch) ($changes)/($untracked)(ansi reset)]"
+  $"(ansi white)[(ansi magenta)($branch) ($changes)/($untracked)(ansi white)]"
+}
+
+def exit-code [] {
+  if ($env.LAST_EXIT_CODE == 0) {
+    ""
+  } else {
+    $"(ansi rb)($env.LAST_EXIT_CODE)"
+  }
 }
 
 def create_left_prompt [] {
   let pwd = relative-to-home $env.PWD
-  let git = git-repo-state $env.PWD
-  # $"(ansi white)┌─ (ansi green)($env.USER)(ansi yellow)@(ansi blue)(hostname --short) (ansi white)($pwd)($git)\n(ansi white)│\n(ansi white)└─ "
-  $"(ansi white)┌ (ansi green)($env.USER)(ansi yellow)@(ansi blue)(hostname --short) (ansi white)($pwd)($git)\n(ansi white)└ "
+  $"(ansi green)($env.USER)(ansi yellow)@(ansi blue)(hostname --short) (ansi white)($pwd) "
 }
 
 def create_right_prompt [] {
-    if ($env.LAST_EXIT_CODE == 0) {
-      "" 
-    } else { 
-      $"(ansi rb)($env.LAST_EXIT_CODE)"
-    }
+  $"(exit-code) (git-repo-state)"
 }
 
 $env.PROMPT_COMMAND = {|| create_left_prompt }
