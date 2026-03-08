@@ -20,13 +20,22 @@ def append-to [ env_file ] {
   print ""
 }
 
+def grab [ file ] {
+  try { 
+	  open $file 
+	} catch {
+	  ""
+	}
+}
+
 # -------------------------------------------------
 
 # copy config and scripts
 
-let $autoload_dir = $nu.user-autoload-dirs.0
-let scripts_dir   = $nu.default-config-dir | path join "scripts"
-let env_file      = $nu.default-config-dir | path join "env.nu"
+let $autoload_dir  = $nu.user-autoload-dirs.0
+let scripts_dir    = $nu.default-config-dir | path join "scripts"
+let env_file       = $nu.default-config-dir | path join "env.nu"
+let local_env_file = $env.HOME | path join ".nushell.env"
 
 ls autoload | copy-to $autoload_dir
 ls config   | copy-to $nu.default-config-dir
@@ -35,6 +44,7 @@ ls -a home  | copy-to $env.HOME
 
 # append these files to {config}/env.nu
 
+grab $local_env_file | save --force $env_file
 ls env | append-to $env_file
 
 # install plugins
