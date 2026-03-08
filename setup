@@ -39,7 +39,7 @@ ls env | append-to $env_file
 
 # install plugins
 
-/usr/libexec/nushell/post-install.nu
+sudo /usr/libexec/nushell/post-install.nu
 
 # install carapace completions
 
