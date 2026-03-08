@@ -44,8 +44,9 @@ ls -a home  | copy-to $env.HOME
 
 # append these files to {config}/env.nu
 
-grab $local_env_file | save --force $env_file
+"" | save --force $env_file
 ls env | append-to $env_file
+grab $local_env_file | save --append $env_file
 
 # install plugins
 
